@@ -9,43 +9,43 @@ var isMountainArray = function (arr) {
     if (arr.length < 3)
         return false;
 
-    let going_down = false;
+    let goingDown = false;
 
     // Check that the array starts by going up
-    let going_up = arr[0] < arr[1]
-    if (!going_up)
+    let goingUp = arr[0] < arr[1]
+    if (!goingUp)
         return false;
 
     // Assume array elements are >= 0
-    let prev_val = -1
+    let prevVal = -1;
 
     for (let elem of arr) {
         // Continue going up
-        if ((elem > prev_val) && going_up)
-            prev_val = elem;
+        if ((elem > prevVal) && goingUp)
+            prevVal = elem;
         // Mark that we have reached the
         // peak of the mountain array
         // and we are now going down
-        else if ((elem < prev_val) && going_up) {
-            going_up = false;
-            going_down = true;
-            prev_val = elem;
+        else if ((elem < prevVal) && goingUp) {
+            goingUp = false;
+            goingDown = true;
+            prevVal = elem;
         }
         // Continue going down
-        else if ((elem < prev_val) && going_down)
-            prev_val = elem;
+        else if ((elem < prevVal) && goingDown)
+            prevVal = elem;
         else
             return false;
     }
 
-    return !going_up && going_down
+    return !goingUp && goingDown;
 };
 
 // Tests
-const arr1 = [2, 1]
-const arr2 = [3, 5, 5]
-const arr3 = [0, 3, 2, 1]
-const arr4 = [3, 2, 1, 2]
-const arr5 = [1, 2, 3]
+const arr1 = [2, 1];
+const arr2 = [3, 5, 5];
+const arr3 = [0, 3, 2, 1];
+const arr4 = [3, 2, 1, 2];
+const arr5 = [1, 2, 3];
 
-console.log(isMountainArray(arr1))
+console.log(isMountainArray(arr1));
