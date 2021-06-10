@@ -18,7 +18,7 @@ class SinglyLinkedList {
     }
 
     /**
-     * @returns {integer}
+     * @returns {number}
      */
     getSize() {
         return this.size;
@@ -28,11 +28,11 @@ class SinglyLinkedList {
      * @returns {boolean}
      */
     isEmpty() {
-        return this.size === 0;
+        return this.getSize() === 0;
     }
 
     /** Append a node of value val to the last element of the linked list. 
-     * @param {integer} value
+     * @param {number} value
      * @returns {void}
     */
     addLast(value) {
@@ -47,11 +47,12 @@ class SinglyLinkedList {
         }
 
         this.size++;
+        return;
     }
 
     /** Add a node of value val before the first element of the linked list. 
      * After the insertion, the new node will be the first node of the linked list. 
-     * @param {integer} value
+     * @param {number} value
      * @returns {void}
     */
     addFirst(value) {
@@ -66,46 +67,58 @@ class SinglyLinkedList {
         }
 
         this.size++;
+        return;
     }
 
     /** Add a node of value val before the index-th node in the linked list. 
      * If index equals to the length of linked list, the node will be appended 
      * to the end of linked list. If index is greater than the length, 
      * the node will not be inserted. 
-     * @param {integer} index
-     * @param {integer} value
+     * @param {number} index
+     * @param {number} value
      * @returns {void}
     */
     addAtIndex(index, value) {
+        try {
+            if (index < 0 || index > this.getSize()) {
+                throw RangeError("Index must be between zero and linked list length (inclusive).");
+            }
+        } catch (error) {
+            console.log(error);
+            return;
+        }
         if (index === 0) {
             this.addFirst(value);
-            return;
         }
-
-        if (index === this.size) {
+        if (index === this.getSize()) {
             this.addLast(value);
-            return;
         }
-
-        let prev = this.getNode(index - 1);
-        if (prev === null) return;
 
         let current = new Node(value);
+        let prev = this.getNode(index - 1);
         let next = prev.next;
         current.next = next;
         prev.next = current;
 
         this.size++;
+        return;
     }
 
     /** Remove the first (i.e. zero-th) node in the linked list. 
      * If linked list is empty, method returns. 
-     * @returns {void}
+     * @returns {number}
     */
     removeFirst() {
-        if (this.isEmpty()) return;
+        try {
+            if (this.isEmpty())
+                throw Error("Linked list is empty.");
+        } catch (error) {
+            console.log(error);
+            return;
+        }
 
-        if (this.size === 1) {
+        let removedNodeValue = this.first.value;
+        if (this.getSize() === 1) {
             this.first = this.last = null;
         }
         else {
@@ -115,44 +128,61 @@ class SinglyLinkedList {
         }
 
         this.size--;
+        return removedNodeValue;
     }
 
     /** Remove the last node in the linked list. 
      * If linked list is empty, method returns. 
-     * @returns {void}
+     * @returns {number}
     */
     removeLast() {
-        if (this.isEmpty()) return;
+        try {
+            if (this.isEmpty())
+                throw Error("Linked list is empty.");
+        } catch (error) {
+            console.log(error);
+            return;
+        }
 
-        if (this.size === 1) {
+        let removedNodeValue = this.last.value;
+        if (this.getSize() === 1) {
             this.first = this.last = null;
         }
         else {
-            let prev = this.getNode(this.size - 2);
+            let prev = this.getNode(this.getSize() - 2);
             this.last = prev;
             this.last.next = null;
         }
 
         this.size--;
+        return removedNodeValue;
     }
 
     /** Remove the index-th node in the linked list. 
      * If linked list is empty or index is negative or index is greater than
      * linked list length, method returns. 
-     * @param {integer} index
-     * @returns {void}
+     * @param {number} index
+     * @returns {number}
     */
     removeAtIndex(index) {
-        if (this.isEmpty() || index < 0 || index > this.size - 1) {
+        try {
+            if (this.isEmpty())
+                throw Error("Linked list is empty.");
+            if (index < 0 || index > this.getSize())
+                throw RangeError("Index must be between zero and linked list length (inclusive).");
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+
+        if (this.isEmpty() || index < 0 || index > this.getSize() - 1) {
             return;
         }
         if (index === 0) {
             this.removeFirst();
-            return;
         }
         if (index === this.size - 1) {
             this.removeLast();
-            return;
         }
 
         let current = this.getNode(index);
@@ -161,11 +191,12 @@ class SinglyLinkedList {
         previous.next = next;
 
         this.size--;
+        return current.value;
 
     }
 
     /** Helper function to return the index-th node in the linked list. 
-     * @param {integer} index
+     * @param {number} index
      * @returns {Node}
     */
     getNode(index) {
@@ -179,8 +210,8 @@ class SinglyLinkedList {
 
     /** Get the value of the index-th node in the linked list. 
      * If the index is invalid, return -1. 
-     * @param {integer} index
-     * @returns {integer}
+     * @param {number} index
+     * @returns {number}
     */
     getNodeValue(index) {
         let current = this.getNode(index);
@@ -216,12 +247,12 @@ console.log(list.getSize());
 list.addAtIndex(2, 40);
 console.log(list.toArray());
 console.log(list.getSize());
-list.removeAtIndex(2);
+console.log(list.removeAtIndex(2));
 console.log(list.toArray());
 console.log(list.getSize());
-list.removeFirst();
+console.log(list.removeFirst());
 console.log(list.toArray());
 console.log(list.getSize());
-list.removeLast();
+console.log(list.removeLast());
 console.log(list.toArray());
 console.log(list.getSize());
