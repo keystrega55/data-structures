@@ -95,10 +95,10 @@ class SinglyLinkedList {
         }
 
         let current = new Node(value);
-        let prev = this.getNode(index - 1);
-        let next = prev.next;
+        let previous = this.getNode(index - 1);
+        let next = previous.next;
         current.next = next;
-        prev.next = current;
+        previous.next = current;
 
         this.size++;
         return;
@@ -149,8 +149,8 @@ class SinglyLinkedList {
             this.first = this.last = null;
         }
         else {
-            let prev = this.getNode(this.getSize() - 2);
-            this.last = prev;
+            let previous = this.getNode(this.getSize() - 2);
+            this.last = previous;
             this.last.next = null;
         }
 
@@ -185,10 +185,10 @@ class SinglyLinkedList {
             this.removeLast();
         }
 
-        let current = this.getNode(index);
         let previous = this.getNode(index - 1);
-        let next = current.next;
-        previous.next = next;
+        let current = previous.next;
+        previous.next = current.next;
+        current.next = null;
 
         this.size--;
         return current.value;
