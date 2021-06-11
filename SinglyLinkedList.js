@@ -47,7 +47,6 @@ class SinglyLinkedList {
         }
 
         this.size++;
-        return;
     }
 
     /** Add a node of value val before the first element of the linked list. 
@@ -67,7 +66,6 @@ class SinglyLinkedList {
         }
 
         this.size++;
-        return;
     }
 
     /** Add a node of value val before the index-th node in the linked list. 
@@ -89,9 +87,11 @@ class SinglyLinkedList {
         }
         if (index === 0) {
             this.addFirst(value);
+            return;
         }
         if (index === this.getSize()) {
             this.addLast(value);
+            return;
         }
 
         let current = new Node(value);
@@ -101,7 +101,6 @@ class SinglyLinkedList {
         previous.next = current;
 
         this.size++;
-        return;
     }
 
     /** Remove the first (i.e. zero-th) node in the linked list. 
@@ -175,9 +174,6 @@ class SinglyLinkedList {
             return;
         }
 
-        if (this.isEmpty() || index < 0 || index > this.getSize() - 1) {
-            return;
-        }
         if (index === 0) {
             this.removeFirst();
         }
