@@ -185,8 +185,8 @@ class DoublyLinkedList {
         }
 
         let current = this.getNode(index);
-        current.previous.next = current.next
-        current.next.previous = current.previous
+        current.previous.next = current.next;
+        current.next.previous = current.previous;
         current.previous = current.next = null;
 
         this.size--;
