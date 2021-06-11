@@ -27,6 +27,7 @@ class SinglyLinkedList:
             self.first = self.last = node
         else:
             self.last.next = node
+            node.previous = self.last
             self.last = node
 
         self.size += 1
