@@ -43,6 +43,7 @@ class DoublyLinkedList {
         }
         else {
             this.last.next = node;
+            node.previous = this.last;
             this.last = node;
         }
 
