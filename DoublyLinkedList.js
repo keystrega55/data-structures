@@ -47,7 +47,6 @@ class DoublyLinkedList {
         }
 
         this.size++;
-        return;
     }
 
     /** Add a node of value val before the first element of the linked list. 
@@ -68,7 +67,6 @@ class DoublyLinkedList {
         }
 
         this.size++;
-        return;
     }
 
     /** Add a node of value val before the index-th node in the linked list. 
@@ -90,9 +88,11 @@ class DoublyLinkedList {
         }
         if (index === 0) {
             this.addFirst(value);
+            return;
         }
         if (index === this.getSize()) {
             this.addLast(value);
+            return;
         }
 
         let node = new Node(value);
@@ -103,7 +103,6 @@ class DoublyLinkedList {
         current.previous = node;
 
         this.size++;
-        return;
     }
 
     /** Remove the first (i.e. zero-th) node in the linked list. 
@@ -177,9 +176,6 @@ class DoublyLinkedList {
             return;
         }
 
-        if (this.isEmpty() || index < 0 || index > this.getSize() - 1) {
-            return;
-        }
         if (index === 0) {
             this.removeFirst();
         }
